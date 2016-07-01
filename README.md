@@ -30,13 +30,17 @@ protoc ./service1.proto --go_out=plugins=grpc:.
 1. Create new empty struct which will be dealt with as a Server for your gRPC connectin:
 ```
 type server struct{}	
-```2. Listen to a TCP port let it be port 32001 using normal Go "net" packge 3. Create an ew gRPC server usign "grpc.NewServer()" which is defined within "google.golang.org/grpc" Go packge:
+```
+2. Listen to a TCP port let it be port 32001 using normal Go "net" packge
+3. Create an ew gRPC server usign "grpc.NewServer()" which is defined within "google.golang.org/grpc" Go packge:
 ```
 s:=grpc.NewServer()
-```4. Register server to our custom gRPC service:
+```
+4. Register server to our custom gRPC service:
 ```
 pb.RegisterSensorServer(s, &server{})
-```5. Serve clients:
+```
+5. Serve clients:
 ```
 s.Serve(ln)
 ```
@@ -49,14 +53,17 @@ conn,err:= grpc.Dial("localhost:32001", grpc.WithInsecure())
 	if err!=nil{
 		log.Fatalf("%s\n", err)
 	}
-```2. Register our client to the custom gRPC service:
+```
+2. Register our client to the custom gRPC service:
 ```
 c:= pb.NewSensorClient(conn)
-```3. Call our custom gRPC method, taking into considertion "context" parameter as per the specs:
+```
+3. Call our custom gRPC method, taking into considertion "context" parameter as per the specs:
 ```
 r,err:= c.SendReadings(context.Background(), &pb.SensorReadingsReq{Sensorno:"2"})
 	if err!=nil{
 		log.Fatalf("%s\n",err)
 	}
-```4. Finally, handle the response!
+```
+4. Finally, handle the response!
 
