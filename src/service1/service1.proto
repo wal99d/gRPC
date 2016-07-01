@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package service1;
+
+message SensorReadingRep{
+	string readings=1;
+}
+
+message SensorReadingsReq{
+	string sensorno=1;
+}
+
+service Sensor{
+	rpc SendReadings(SensorReadingsReq) returns (SensorReadingRep) {}
+}
