@@ -26,13 +26,14 @@ protoc ./service1.proto --go_out=plugins=grpc:.
 ```
 
 *Then you need to create a gRPC server implemtation by doing the following steps:*
-***
+---
 
 |1. Create new empty struct which will be dealt with as a Server for your gRPC connectin:
 ```
 type server struct{}	
 ```
 |2. Listen to a TCP port let it be port 32001 using normal Go "net" packge
+
 |3. Create an ew gRPC server usign "grpc.NewServer()" which is defined within "google.golang.org/grpc" Go packge:
 ```
 s:=grpc.NewServer()
@@ -47,7 +48,7 @@ s.Serve(ln)
 ```
 
 *Finally, you need to create a gRPC client implmentation as simple as:*
-***
+---
 
 |1. Dial a gRPC connection to our server using "grpc.Dial".
 ```
