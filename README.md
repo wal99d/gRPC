@@ -43,3 +43,25 @@ pb.RegisterSensorServer(s, &server{})
 '''
 s.Serve(ln)
 '''
+
+*Finally, you need to create a gRPC client implmentation as simple as:*
+1. Dial a gRPC connection to our server using "grpc.Dial".
+'''
+conn,err:= grpc.Dial("localhost:32001", grpc.WithInsecure())
+	if err!=nil{
+		log.Fatalf("%s\n", err)
+	}
+'''
+2. Register our client to the custom gRPC service:
+'''
+c:= pb.NewSensorClient(conn)
+'''
+3. Call our custom gRPC method, taking into considertion "context" parameter as per the specs:
+'''
+r,err:= c.SendReadings(context.Background(), &pb.SensorReadingsReq{Sensorno:"2"})
+	if err!=nil{
+		log.Fatalf("%s\n",err)
+	}
+'''
+4. Finally, handle the response!
+
